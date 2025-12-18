@@ -3,20 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Penghitung Pengeluaran</title>
+  <title>Spendly</title>
+
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1 class="logo">Spendly</h1>
-    <p class="tagline">Catat pengeluaran harianmu dengan mudah, cepat, dan rapi.</p>
-    <input type="text" id="nama" placeholder="Nama pengeluaran (contoh: Makan)" />
-    <input type="number" id="jumlah" placeholder="Jumlah (Rp)" />
-    <button id="btnTambah">Tambah</button>
 
-    <ul id="list"></ul>
+  <div class="app">
 
-    <div class="total">Total: Rp <span id="total">0</span></div>
+    <!-- HEADER -->
+    <div class="header">
+      <h1 class="logo">Spendly</h1>
+      <p class="tagline">
+        Catat pengeluaran harianmu dengan mudah, cepat, dan rapi.
+      </p>
+    </div>
+
+    <!-- TAMBAH PENGELUARAN -->
+    <div class="section">
+      <h3>Tambah Pengeluaran</h3>
+
+      <div class="form">
+        <input type="text" id="nama" placeholder="Nama pengeluaran" />
+        <input type="number" id="jumlah" placeholder="Jumlah (Rp)" />
+        <input type="date" id="tanggal" />
+
+        <!-- PENTING: type="button" -->
+        <button id="btnTambah" type="button">Tambah</button>
+      </div>
+    </div>
+
+    <!-- DAFTAR -->
+    <div class="section">
+      <h3>Daftar Pengeluaran</h3>
+      <ul id="list"></ul>
+    </div>
+
+    <!-- LAPORAN -->
+    <div class="section">
+      <h3>Laporan Bulanan</h3>
+
+      <div class="filter">
+        <input type="month" id="filterBulan" />
+        <button id="btnExport" type="button">Export CSV</button>
+      </div>
+
+      <div class="total-bulan">
+        Total Bulan Ini: <span id="totalBulanan">Rp 0</span>
+      </div>
+
+      <canvas id="chart"></canvas>
+    </div>
+
   </div>
 
   <script src="script.js"></script>
