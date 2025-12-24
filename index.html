@@ -3,61 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Spendly</title>
+  <title>Spendly - Dashboard</title>
 
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-  <div class="app">
+<div class="layout">
 
-    <!-- HEADER -->
-    <div class="header">
-      <h1 class="logo">Spendly</h1>
-      <p class="tagline">
-        Catat pengeluaran harianmu dengan mudah, cepat, dan rapi.
-      </p>
-    </div>
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2 class="sidebar-logo">Spendly</h2>
 
-    <!-- TAMBAH PENGELUARAN -->
-    <div class="section">
-      <h3>Tambah Pengeluaran</h3>
+    <nav class="menu">
+      <a href="index.html" class="menu-item active">Dashboard</a>
+      <a href="laporan.html" class="menu-item">Laporan</a>
+    </nav>
+  </aside>
 
-      <div class="form">
-        <input type="text" id="nama" placeholder="Nama pengeluaran" />
-        <input type="number" id="jumlah" placeholder="Jumlah (Rp)" />
-        <input type="date" id="tanggal" />
+  <!-- CONTENT -->
+  <main class="content">
+    <div class="app">
 
-        <!-- PENTING: type="button" -->
-        <button id="btnTambah" type="button">Tambah</button>
-      </div>
-    </div>
-
-    <!-- DAFTAR -->
-    <div class="section">
-      <h3>Daftar Pengeluaran</h3>
-      <ul id="list"></ul>
-    </div>
-
-    <!-- LAPORAN -->
-    <div class="section">
-      <h3>Laporan Bulanan</h3>
-
-      <div class="filter">
-        <input type="month" id="filterBulan" />
-        <button id="btnExport" type="button">Export CSV</button>
+      <!-- HEADER -->
+      <div class="header">
+        <h1 class="logo">Dashboard</h1>
+        <p class="tagline">
+          Catat pengeluaran harianmu dengan mudah, cepat, dan rapi.
+        </p>
       </div>
 
-      <div class="total-bulan">
-        Total Bulan Ini: <span id="totalBulanan">Rp 0</span>
+      <!-- TAMBAH PENGELUARAN -->
+      <div class="section">
+        <h3>Tambah Pengeluaran</h3>
+
+        <div class="form">
+          <input type="text" id="nama" placeholder="Nama pengeluaran" />
+          <input type="number" id="jumlah" placeholder="Jumlah (Rp)" />
+          <input type="date" id="tanggal" />
+          <button id="btnTambah" type="button">Tambah</button>
+        </div>
       </div>
 
-      <canvas id="chart"></canvas>
+      <!-- DAFTAR -->
+      <div class="section">
+        <h3>Daftar Pengeluaran</h3>
+        <ul id="list"></ul>
+      </div>
+
+      <!-- TOTAL -->
+      <div class="section">
+        <strong>Total Pengeluaran:</strong>
+        <span id="total">Rp 0</span>
+      </div>
+
     </div>
+  </main>
 
-  </div>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

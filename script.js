@@ -8,8 +8,6 @@ const list = document.getElementById("list");
 const totalSpan = document.getElementById("total");
 const btnTambah = document.getElementById("btnTambah");
 
-let chart;
-
 btnTambah.addEventListener("click", simpanPengeluaran);
 
 render();
@@ -45,18 +43,12 @@ function render() {
   list.innerHTML = "";
   let total = 0;
 
-  const selectedMonth = document.getElementById("filterBulan").value;
-
-  const filtered = selectedMonth
-    ? expenses.filter(e => e.tanggal.startsWith(selectedMonth))
-    : expenses;
-
-  filtered.forEach((e, i) => {
+  expenses.forEach((e, i) => {
     total += e.jumlah;
 
     const li = document.createElement("li");
     li.innerHTML = `
-      <span>${e.nama}: Rp ${e.jumlah}</span>
+      <span>${e.nama} - Rp ${e.jumlah}</span>
       <div>
         <button onclick="editItem(${i})">Edit</button>
         <button onclick="hapusItem(${i})">Hapus</button>
@@ -64,11 +56,9 @@ function render() {
     `;
     list.appendChild(li);
   });
-  // ✅ CHART JUGA HARUS PAKAI DATA TERFILTER
-  renderChart(filtered);
-}
 
-    totalSpan.textContent = `Rp ${total}`;
+  totalSpan.textContent = `Rp ${total}`;
+}
 
 function editItem(index) {
   const e = expenses[index];
@@ -84,29 +74,4 @@ function hapusItem(index) {
   expenses.splice(index, 1);
   localStorage.setItem("expenses", JSON.stringify(expenses));
   render();
-}
-
-function renderChart(data) {
-  const dataPerTanggal = {};
-
-  data.forEach(e => {
-    dataPerTanggal[e.tanggal] =
-      (dataPerTanggal[e.tanggal] || 0) + e.jumlah;
-  });
-
-  const labels = Object.keys(dataPerTanggal);
-  const values = Object.values(dataPerTanggal);
-
-  if (chart) chart.destroy();
-
-  chart = new Chart(document.getElementById("chart"), {
-    type: "bar",
-    data: {
-      labels,
-      datasets: [{
-        label: "Pengeluaran",
-        data: values
-      }]
-    }
-  });
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spendly - Laporan</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2 class="sidebar-logo">Spendly</h2>
+
+    <nav class="menu">
+      <a href="index.html" class="menu-item">Dashboard</a>
+      <a href="laporan.html" class="menu-item active">Laporan</a>
+    </nav>
+  </aside>
+
+  <!-- CONTENT -->
+  <main class="content">
+    <div class="app">
+
+      <div class="header">
+        <h1 class="logo">Laporan Pengeluaran</h1>
+        <p class="tagline">Rekap pengeluaran per bulan</p>
+      </div>
+
+      <div class="section">
+        <div class="filter">
+          <input type="month" id="filterBulan" />
+          <a href="index.html" class="btn-kembali">← Kembali</a>
+        </div>
+
+        <div class="total-bulan">
+          Total Bulan Ini: <strong><span id="totalBulanan">Rp 0</span></strong>
+        </div>
+
+        <table class="laporan-table">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Nama</th>
+              <th>Jumlah (Rp)</th>
+            </tr>
+          </thead>
+          <tbody id="tabelLaporan"></tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<script src="laporan.js"></script>
+</body>
+</html>
