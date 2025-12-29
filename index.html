@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Spendly - Dashboard</title>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,7 +12,7 @@
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <h2 class="sidebar-logo">Spendly</h2>
+    <h2 class="sidebar-logo">💸 Spendly</h2>
 
     <nav class="menu">
       <a href="index.html" class="menu-item active">Dashboard</a>
@@ -26,36 +25,45 @@
     <div class="app">
 
       <!-- HEADER -->
-      <div class="header">
-        <h1 class="logo">Dashboard</h1>
-        <p class="tagline">
-          Catat pengeluaran harianmu dengan mudah, cepat, dan rapi.
-        </p>
-      </div>
+      <header class="header">
+        <h1>Dashboard</h1>
+        <p>Catat pengeluaran harianmu dengan mudah, cepat, dan rapi.</p>
+      </header>
 
-      <!-- TAMBAH PENGELUARAN -->
-      <div class="section">
+      <!-- TAMBAH -->
+      <section class="card">
         <h3>Tambah Pengeluaran</h3>
 
         <div class="form">
           <input type="text" id="nama" placeholder="Nama pengeluaran" />
           <input type="number" id="jumlah" placeholder="Jumlah (Rp)" />
           <input type="date" id="tanggal" />
-          <button id="btnTambah" type="button">Tambah</button>
+          <button id="btnTambah">Tambah</button>
         </div>
-      </div>
+      </section>
 
-      <!-- DAFTAR -->
-      <div class="section">
+      <!-- LIST -->
+      <section class="card">
         <h3>Daftar Pengeluaran</h3>
-        <ul id="list"></ul>
-      </div>
+
+        <table class="laporan-table" style="width:100%">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Nama</th>
+              <th>Jumlah</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="list"></tbody>
+        </table>
+      </section>
 
       <!-- TOTAL -->
-      <div class="section">
-        <strong>Total Pengeluaran:</strong>
-        <span id="total">Rp 0</span>
-      </div>
+      <section class="total-card">
+        <span>Total Pengeluaran</span>
+        <strong id="total">Rp 0</strong>
+      </section>
 
     </div>
   </main>

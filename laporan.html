@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Spendly - Laporan</title>
-
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -13,7 +12,7 @@
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
-    <h2 class="sidebar-logo">Spendly</h2>
+    <h2 class="sidebar-logo">💸 Spendly</h2>
 
     <nav class="menu">
       <a href="index.html" class="menu-item">Dashboard</a>
@@ -25,33 +24,42 @@
   <main class="content">
     <div class="app">
 
-      <div class="header">
-        <h1 class="logo">Laporan Pengeluaran</h1>
-        <p class="tagline">Rekap pengeluaran per bulan</p>
-      </div>
+      <!-- HEADER (SAMA DENGAN DASHBOARD) -->
+      <header class="header">
+        <h1>Laporan</h1>
+        <p>Rekap pengeluaran berdasarkan bulan</p>
+      </header>
 
-      <div class="section">
+      <!-- FILTER -->
+      <section class="card">
         <div class="filter">
           <input type="month" id="filterBulan" />
-          <a href="index.html" class="btn-kembali">← Kembali</a>
+          <a href="index.html" class="btn-kembali">← Kembali ke Dashboard</a>
         </div>
+      </section>
 
-        <div class="total-bulan">
-          Total Bulan Ini: <strong><span id="totalBulanan">Rp 0</span></strong>
-        </div>
+      <!-- TABEL -->
+      <section class="card">
+        <h3>Daftar Pengeluaran</h3>
 
         <table class="laporan-table">
           <thead>
             <tr>
               <th>Tanggal</th>
               <th>Nama</th>
-              <th>Jumlah (Rp)</th>
+              <th>Jumlah</th>
             </tr>
           </thead>
           <tbody id="tabelLaporan"></tbody>
         </table>
-      </div>
+      </section>
 
+      <!-- TOTAL -->
+      <section class="total-card">
+        <span>Total Bulan Ini</span>
+        <strong id="totalBulanan">Rp 0</strong>
+      </section>
+      
     </div>
   </main>
 
