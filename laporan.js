@@ -3,6 +3,9 @@ const expenses = JSON.parse(localStorage.getItem("expenses")) || [];
 const filterBulan = document.getElementById("filterBulan");
 const totalBulanan = document.getElementById("totalBulanan");
 const tabel = document.getElementById("tabelLaporan");
+const ctx = document.getElementById("chartBulanan");
+
+let chart;
 
 /* =========================
   Helper
@@ -31,10 +34,56 @@ filterBulan.value = today.toISOString().slice(0, 7);
 filterBulan.addEventListener("change", renderLaporan);
 
 /* =========================
-  Render
+  Render Chart
 ========================= */
-renderLaporan();
+function renderChart(data) {
+  const group = {};
 
+  data.forEach(e => {
+    const tgl = formatTanggal(e.tanggal);
+    group[tgl] = (group[tgl] || 0) + e.jumlah;
+  });
+
+  const labels = Object.keys(group);
+  const values = Object.values(group);
+
+  if (chart) chart.destroy();
+
+  chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels,
+      datasets: [{
+        label: "Pengeluaran",
+        data: values,
+        backgroundColor: "#6366F1",
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => formatRupiah(ctx.raw)
+          }
+        }
+      },
+      scales: {
+        y: {
+          ticks: {
+            callback: value => formatRupiah(value)
+          }
+        }
+      }
+    }
+  });
+}
+
+/* =========================
+  Render Laporan
+========================= */
 function renderLaporan() {
   const bulan = filterBulan.value;
 
@@ -52,6 +101,7 @@ function renderLaporan() {
       </tr>
     `;
     totalBulanan.textContent = formatRupiah(0);
+    if (chart) chart.destroy();
     return;
   }
 
@@ -68,4 +118,10 @@ function renderLaporan() {
   });
 
   totalBulanan.textContent = formatRupiah(total);
+  renderChart(filtered);
 }
+
+/* =========================
+  Initial Render
+========================= */
+renderLaporan();
