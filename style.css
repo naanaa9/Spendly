@@ -274,3 +274,15 @@ button:hover {
 .btn-delete:hover {
   background: #4f46e5;
 }
+#perbandinganBulan p {
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.compare-up {
+  color: #16a34a; /* hijau */
+}
+
+.compare-down {
+  color: #dc2626; /* merah */
+}

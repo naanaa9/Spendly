@@ -4,6 +4,7 @@ const filterBulan = document.getElementById("filterBulan");
 const totalBulanan = document.getElementById("totalBulanan");
 const tabel = document.getElementById("tabelLaporan");
 const ctx = document.getElementById("chartBulanan");
+const compareText = document.getElementById("compareText");
 
 let chart;
 
@@ -28,13 +29,10 @@ function formatTanggal(tgl) {
 const today = new Date();
 filterBulan.value = today.toISOString().slice(0, 7);
 
-/* =========================
-  Event
-========================= */
 filterBulan.addEventListener("change", renderLaporan);
 
 /* =========================
-  Render Chart
+  Chart
 ========================= */
 function renderChart(data) {
   const group = {};
@@ -44,32 +42,21 @@ function renderChart(data) {
     group[tgl] = (group[tgl] || 0) + e.jumlah;
   });
 
-  const labels = Object.keys(group);
-  const values = Object.values(group);
-
   if (chart) chart.destroy();
 
   chart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels,
+      labels: Object.keys(group),
       datasets: [{
-        label: "Pengeluaran",
-        data: values,
+        data: Object.values(group),
         backgroundColor: "#6366F1",
         borderRadius: 6
       }]
     },
     options: {
       responsive: true,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: ctx => formatRupiah(ctx.raw)
-          }
-        }
-      },
+      plugins: { legend: { display: false } },
       scales: {
         y: {
           ticks: {
@@ -82,14 +69,54 @@ function renderChart(data) {
 }
 
 /* =========================
+  Total per bulan
+========================= */
+function getTotalByMonth(month) {
+  return expenses
+    .filter(e => e.tanggal.startsWith(month))
+    .reduce((sum, e) => sum + e.jumlah, 0);
+}
+
+/* =========================
+  Perbandingan Bulan
+========================= */
+function renderPerbandinganBulan(bulanAktif) {
+  const currentTotal = getTotalByMonth(bulanAktif);
+
+  const [year, month] = bulanAktif.split("-");
+  const prevDate = new Date(year, month - 2, 1);
+  const prevMonth = prevDate.toISOString().slice(0, 7);
+
+  const prevTotal = getTotalByMonth(prevMonth);
+
+  if (prevTotal === 0) {
+    compareText.textContent = "Belum ada data bulan sebelumnya";
+    compareText.className = "";
+    return;
+  }
+
+  const diff = currentTotal - prevTotal;
+  const percent = Math.round((diff / prevTotal) * 100);
+  const nominal = formatRupiah(Math.abs(diff));
+
+  if (diff > 0) {
+    compareText.textContent = `⬆️ Naik ${percent}% (+${nominal})`;
+    compareText.className = "compare-up";
+  } else if (diff < 0) {
+    compareText.textContent = `⬇️ Turun ${Math.abs(percent)}% (-${nominal})`;
+    compareText.className = "compare-down";
+  } else {
+    compareText.textContent = "Tidak ada perubahan dari bulan sebelumnya";
+    compareText.className = "";
+  }
+}
+
+/* =========================
   Render Laporan
 ========================= */
 function renderLaporan() {
   const bulan = filterBulan.value;
-
-  const filtered = expenses.filter(e =>
-    bulan ? e.tanggal.startsWith(bulan) : true
-  );
+  const filtered = expenses.filter(e => e.tanggal.startsWith(bulan));
 
   tabel.innerHTML = "";
   let total = 0;
@@ -102,6 +129,7 @@ function renderLaporan() {
     `;
     totalBulanan.textContent = formatRupiah(0);
     if (chart) chart.destroy();
+    compareText.textContent = "";
     return;
   }
 
@@ -119,6 +147,7 @@ function renderLaporan() {
 
   totalBulanan.textContent = formatRupiah(total);
   renderChart(filtered);
+  renderPerbandinganBulan(bulan);
 }
 
 /* =========================
