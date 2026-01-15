@@ -16,12 +16,16 @@ body {
   min-height: 100vh;
 }
 
-/* SIDEBAR */
 .sidebar {
-  width: 220px;
   background: #1f2937;
   color: #fff;
   padding: 24px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 260px;      /* satu nilai saja */
+  height: 100vh;
+  overflow-y: auto;
 }
 
 .sidebar-logo {
@@ -57,6 +61,13 @@ body {
 
 .app {
   max-width: 900px;
+}
+
+.main-content {
+  margin-left: 20px;  /* sama dengan lebar sidebar */
+  padding: 24px;
+  flex: 1;
+  background: #f4f6fb;
 }
 
 /* HEADER */
