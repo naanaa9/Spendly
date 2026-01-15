@@ -154,3 +154,29 @@ function renderLaporan() {
   Initial Render
 ========================= */
 renderLaporan();
+
+document.getElementById("btnExport").addEventListener("click", exportExcel);
+
+function exportExcel() {
+  const bulan = filterBulan.value;
+  const filtered = expenses.filter(e =>
+    e.tanggal.startsWith(bulan)
+  );
+
+  if (filtered.length === 0) {
+    alert("Tidak ada data untuk diexport");
+    return;
+  }
+
+  const data = filtered.map(e => ({
+    Tanggal: formatTanggal(e.tanggal),
+    Nama: e.nama,
+    Jumlah: e.jumlah
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Laporan");
+
+  XLSX.writeFile(workbook, `Laporan-${bulan}.xlsx`);
+}
